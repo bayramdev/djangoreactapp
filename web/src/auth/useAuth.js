@@ -22,7 +22,7 @@ async function requestUser(token) {
 }
 
 async function requestSignup(cred) {
-  const { data } = await axios.post("auth/register/", cred, {
+  const { data } = await axios.post("auth/signup/", cred, {
     baseURL: API_BASE_URL,
   });
   return data;

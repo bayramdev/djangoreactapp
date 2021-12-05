@@ -2,11 +2,11 @@ from django.contrib.auth import login
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
+from .serializers import SignupSerializer, LoginSerializer, UserSerializer
 
 
-class RegisterAPI(generics.GenericAPIView):
-    serializer_class = RegisterSerializer
+class SignupAPI(generics.GenericAPIView):
+    serializer_class = SignupSerializer
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
