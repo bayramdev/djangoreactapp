@@ -15,11 +15,12 @@ module.exports = {
           dark: "#eaeaea",
         },
       },
-      fonts: {},
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ["active"],
+    },
   },
   plugins: [],
 };
