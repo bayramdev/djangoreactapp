@@ -1,6 +1,6 @@
 import Logo from "../components/Logo";
 
-function Profile() {
+function EditProfile() {
   return (
     <main className="form-page">
       <Logo />
@@ -70,4 +70,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default EditProfile;
