@@ -1,23 +1,38 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NotFound from "./pages/NotFound";
+import Signup from "./pages/Signup";
+import EditProfile from "./pages/EditProfile";
 import ResetPassword from "./pages/ResetPassword";
+import NotFound from "./pages/NotFound";
+
+import PrivateOutlet from "./auth/PrivateOutlet";
+import { AuthProvider } from "./auth/useAuth";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="edit-profile" element={<Profile />} />
-        <Route path="reset-password" element={<ResetPassword />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PrivateOutlet />}>
+            <Route path="/" element={<Home />} />
+          </Route>
+
+          <Route path="account">
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+          </Route>
+
+          <Route path="settings" element={<PrivateOutlet />}>
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
