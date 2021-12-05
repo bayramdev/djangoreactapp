@@ -45,5 +45,5 @@ code {
 
 .form-submit {
   @apply bg-form-primary-medium cursor-pointer rounded-sm text-white
-    font-bold p-2;
+    font-bold p-2 active:bg-form-primary-dark;
 }
