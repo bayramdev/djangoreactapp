@@ -1,4 +1,4 @@
 export const API_BASE_URL =
-  process.env.API_BASE_URL || "http://localhost:8000/";
+  "https://61ae503f8e434e000794d602--djangoreactapp-demo.netlify.app/";
 
 export const TOKEN_KEY = "access_key";
