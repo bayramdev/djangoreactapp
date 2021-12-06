@@ -53,16 +53,18 @@ async function requestLogout() {
   );
 }
 
-async function requestResetPassword(cred) {
-  const { data } = await axios.post("auth/reset_password/", cred, {
+async function requestResetPassword(cred, token) {
+  const { data } = await axios.put("auth/reset_password/", cred, {
     baseURL: API_BASE_URL,
+    headers: { Authorization: `Token ${token}` },
   });
   return data;
 }
 
-async function requestEditProfile(cred) {
-  const { data } = await axios.post("auth/edit_profile/", cred, {
+async function requestEditProfile(cred, token) {
+  const { data } = await axios.patch("auth/edit_profile/", cred, {
     baseURL: API_BASE_URL,
+    headers: { Authorization: `Token ${token}` },
   });
   return data;
 }
@@ -91,8 +93,9 @@ function useAuth() {
       setToken(null);
     },
 
-    resetPasword: requestResetPassword,
-    editProfile: requestEditProfile,
+    resetPassword: (cred) => requestResetPassword(cred, token),
+
+    editProfile: (cred) => requestEditProfile(cred, token),
   };
 }
 
