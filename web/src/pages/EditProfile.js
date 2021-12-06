@@ -1,4 +1,8 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import Logo from "../components/Logo";
+import ErrorInfo from "../components/ErrorInfo";
 import useAuth from "../auth/useAuth";
 
 function EditProfile() {
@@ -31,11 +35,6 @@ function EditProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.password2) {
-      setErrors({ password2: ["The passwords doesn't match"] });
-      return;
-    }
-
     try {
       await editProfile(formData);
       setErrors({});
@@ -59,7 +58,7 @@ function EditProfile() {
   return (
     <main className="form-page">
       <Logo />
-      <form className="user-form max-w-xl">
+      <form className="user-form max-w-xl" onSubmit={handleSubmit}>
         <h1 className="form-header">Edit Profile</h1>
 
         <section className="flex flex-col gap-2">

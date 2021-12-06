@@ -1,9 +1,13 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import Logo from "../components/Logo";
 import ErrorInfo from "../components/ErrorInfo";
+import useAuth from "../auth/useAuth";
 
 function ResetPassword() {
   const navigate = useNavigate();
-  const { resetPassord } = useAuth();
+  const { resetPassword } = useAuth();
 
   const [formData, setFormData] = useState({
     old_password: "",
@@ -33,7 +37,7 @@ function ResetPassword() {
     }
 
     try {
-      await resetPassord(formData);
+      await resetPassword(formData);
       setErrors({});
       navigate("/account/login");
     } catch (err) {
@@ -55,7 +59,7 @@ function ResetPassword() {
   return (
     <main className="form-page">
       <Logo />
-      <form className="user-form max-w-lg">
+      <form className="user-form max-w-lg" onSubmit={handleSubmit}>
         <h1 className="form-header">Reset Password</h1>
         <section className="flex flex-col gap-2">
           <input
