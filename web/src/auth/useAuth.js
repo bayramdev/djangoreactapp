@@ -53,6 +53,20 @@ async function requestLogout() {
   );
 }
 
+async function requestResetPassword(cred) {
+  const { data } = await axios.post("auth/reset_password/", cred, {
+    baseURL: API_BASE_URL,
+  });
+  return data;
+}
+
+async function requestEditProfile(cred) {
+  const { data } = await axios.post("auth/edit_profile/", cred, {
+    baseURL: API_BASE_URL,
+  });
+  return data;
+}
+
 function useAuth() {
   const [token, setToken] = useToken();
 
@@ -73,10 +87,12 @@ function useAuth() {
     },
 
     logout: async () => {
-      console.log("logout...");
       await requestLogout();
       setToken(null);
     },
+
+    resetPasword: requestResetPassword,
+    editProfile: requestEditProfile,
   };
 }
 
