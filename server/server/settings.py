@@ -26,12 +26,13 @@ SECRET_KEY = "django-insecure-3r2qnrqat50+!=nui*it^x_%ye1uj)46=jr(9r#*&dgi-ym29u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DJANGO_DEBUG"))
 
-ALLOWED_HOSTS = ["djangoreactapp-demo.herokuapp.com"]
+ALLOWED_HOSTS = ["djangoreactapp-demo.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "knox",
-    "corsheaders",
     "authentication",
 ]
 
@@ -74,6 +74,40 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "server.wsgi.application"
+
+
+# Logging
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            "datefmt": "%d/%b/%Y %H:%M:%S",
+        },
+        "simple": {"format": "%(levelname)s %(message)s"},
+    },
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "server.log",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "propagate": True,
+            "level": "DEBUG",
+        },
+        "server": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+        },
+    },
+}
 
 
 # REST
