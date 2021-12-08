@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from knox.models import AuthToken
-from rest_framework.views import APIView
 from .serializers import (
     ResetPasswordSerializer,
     EditProfileSerializer,
@@ -11,7 +10,6 @@ from .serializers import (
     LoginSerializer,
     UserSerializer,
 )
-from authentication import serializers
 
 
 class SignupAPI(generics.GenericAPIView):
@@ -71,22 +69,29 @@ class EditProfileAPI(generics.UpdateAPIView):
     serializer_class = EditProfileSerializer
     model = User
     permission_classes = (permissions.IsAuthenticated,)
+    lookup_field = "username"
 
     def get_object(self):
         return self.request.user
 
     def patch(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        serializer = EditProfileSerializer(data=request.data)
+        self.object = self.get_object()  # Request HTTP 'Authorization' header
+        serializer = self.get_serializer(data=request.data)  # Request body
         if serializer.is_valid():
-            password = serializer.data.get("password")
-            if not self.object.check_password(password):
+            verify_password = serializer.data.get("verify_password")
+            if not self.object.check_password(verify_password):
                 return Response(
-                    {"password": ["Wrong password."]},
+                    {"verify_password": ["Wrong password"]},
                     status=status.HTTP_401_UNAUTHORIZED,
                 )
-            serializer.save()
-            return Response(serializer.data)
+
+            for attr in ("username", "email", "first_name", "last_name"):
+                default = getattr(self.object, attr)
+                value = serializer.data.get(attr, default)
+                setattr(self.object, attr, value)
+
+            self.object.save()
+            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
