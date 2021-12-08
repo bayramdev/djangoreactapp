@@ -1,6 +1,6 @@
 function NotFound() {
   return (
-    <main className="bg-form-neutral-medium h-full flex justify-center items-center">
+    <main className="bg-form-neutral-medium h-full flex justify-center items-center text-center">
       <section className="flex flex-col w-full max-w-xl p-4 gap-4">
         <h1 className="form-header">
           404 Error: Not Found <span className="font-mono">:(</span>
