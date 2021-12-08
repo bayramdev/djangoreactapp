@@ -14,14 +14,14 @@ function EditProfile() {
     last_name: "",
     username: "",
     email: "",
-    password: "",
+    verify_password: "",
   });
   const [errors, setErrors] = useState({
     first_name: [],
     last_name: [],
     username: [],
     email: [],
-    password: [],
+    verify_password: [],
     non_field_errors: [],
   });
 
@@ -119,13 +119,13 @@ function EditProfile() {
             Verify Password
             <input
               onChange={handleChange}
-              value={formData.password}
+              value={formData.verify_password}
               name="password"
               type="password"
               placeholder="Password"
               className="form-input"
             />
-            <ErrorInfo errors={errors.password} />
+            <ErrorInfo errors={errors.verify_password} />
           </label>
 
           <ErrorInfo errors={errors.non_field_errors} />
