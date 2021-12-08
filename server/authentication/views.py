@@ -91,7 +91,7 @@ class EditProfileAPI(generics.UpdateAPIView):
                 setattr(self.object, attr, value)
 
             self.object.save()
-            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
