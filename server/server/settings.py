@@ -144,6 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {"min_length": 6},
     },
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
@@ -152,6 +153,12 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+
+# Auth Custom User Model
+# https://docs.djangoproject.com/en/3.2/topics/auth/customizing
+
+AUTH_USER_MODEL = "authentication.CustomUser"
 
 
 # Internationalization
