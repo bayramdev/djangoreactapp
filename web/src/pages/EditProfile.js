@@ -120,7 +120,7 @@ function EditProfile() {
             <input
               onChange={handleChange}
               value={formData.verify_password}
-              name="password"
+              name="verify_password"
               type="password"
               placeholder="Password"
               className="form-input"
