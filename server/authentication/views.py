@@ -1,8 +1,9 @@
 from django.contrib.auth import login
-from django.contrib.auth.models import User
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from knox.models import AuthToken
+
+from .models import CustomUser
 from .serializers import (
     ResetPasswordSerializer,
     EditProfileSerializer,
@@ -67,7 +68,7 @@ class UserAPI(generics.RetrieveAPIView):
 
 class EditProfileAPI(generics.UpdateAPIView):
     serializer_class = EditProfileSerializer
-    model = User
+    model = CustomUser
     permission_classes = (permissions.IsAuthenticated,)
     lookup_field = "username"
 
