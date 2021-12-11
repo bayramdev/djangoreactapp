@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-3r2qnrqat50+!=nui*it^x_%ye1uj)46=jr(9r#*&dgi-ym29u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DJANGO_DEBUG"))
 
-ALLOWED_HOSTS = ["djangoreactapp-demo.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["sapien.pythonanywhere.com", "127.0.0.1"]
 
 
 # Application definition
@@ -163,9 +163,7 @@ AUTH_USER_MODEL = "authentication.CustomUser"
 
 # Auth backends
 
-AUTHENTICATION_BACKENDS = [
-    "authentication.backends.EmailOrUsernameModelBackend"
-]
+AUTHENTICATION_BACKENDS = ["authentication.backends.EmailOrUsernameModelBackend"]
 
 
 # Internationalization
