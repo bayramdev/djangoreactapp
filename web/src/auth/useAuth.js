@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState } from "react";
 import { API_BASE_URL, TOKEN_KEY } from "../config";
 import useToken from "./useToken";
 
@@ -71,11 +71,17 @@ async function requestEditProfile(cred, token) {
 
 function useAuth() {
   const [token, setToken] = useToken();
+  const [cachedUser, setCachedUser] = useState({ loading: true });
 
   return {
     token,
+    cachedUser,
 
-    getUser: () => requestUser(token),
+    getUser: async () => {
+      const user = await requestUser(token);
+      setCachedUser(user);
+      return user;
+    },
 
     signup: async (cred) => {
       const { user } = await requestSignup(cred);
@@ -85,12 +91,14 @@ function useAuth() {
     login: async (cred) => {
       const { user, token } = await requestLogin(cred);
       setToken(token);
+      setCachedUser(user);
       return user;
     },
 
     logout: async () => {
       await requestLogout();
       setToken(null);
+      setCachedUser(null);
     },
 
     resetPassword: (cred) => requestResetPassword(cred, token),
