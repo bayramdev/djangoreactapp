@@ -1,10 +1,13 @@
-from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import AbstractUser
 from django.db.models import fields
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext as _
+from .managers import CustomAccountManager
 
 
-class CustomUser(BaseUserManager):
+class CustomUser(AbstractUser):
+    objects = CustomAccountManager()
+
     username = fields.CharField(
         validators=[
             RegexValidator(
@@ -16,8 +19,9 @@ class CustomUser(BaseUserManager):
                 "This field must be at least 6 characters long",
             ),
         ],
+        max_length=42,
         unique=True,
     )
-    email = fields.EmailField(_("email address"), unique=True)
+    email = fields.EmailField(_("email address"), max_length=42, unique=True)
 
     REQUIRED_FIELDS = ["email"]
