@@ -7,13 +7,10 @@ import useAuth from "../auth/useAuth";
 
 function EditProfile() {
   const navigate = useNavigate();
-  const { editProfile } = useAuth();
+  const { editProfile, cachedUser } = useAuth();
 
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    username: "",
-    email: "",
+    ...cachedUser,
     verify_password: "",
   });
   const [errors, setErrors] = useState({
